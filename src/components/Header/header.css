@@ -1,0 +1,53 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.main ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main .desktop ul li {
+  margin-inline: 1em;
+  display: inline-block;
+}
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .main {
+    flex: 1;
+  }
+  .mobile {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    margin: 10;
+  }
+  .desktop {
+    display: none;
+  }
+  .drawerMenu {
+    display: none;
+  }
+  .logo {
+    margin-right: 18px;
+    flex: 1;
+    text-align: center;
+  }
+  .drawerMenu {
+    display: block;
+  }
+}
