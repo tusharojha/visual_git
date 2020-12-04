@@ -11,17 +11,29 @@ const Header = (props) => {
     <div className="main">
       <div className="desktop">
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Tutorial</li>
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+          <li>
+            <a href="#">Tutorial</a>
+          </li>
           <li>
             <div className="logo">
               <h2>Visual Git</h2>
             </div>
           </li>
-          <li>Commands</li>
-          <li>Source on GitHub</li>
-          <li>Share</li>
+          <li>
+            <a href="#">Commands</a>
+          </li>
+          <li>
+            <a href="#">Source on GitHub</a>
+          </li>
+          <li>
+            <a href="#">Share</a>
+          </li>
         </ul>
       </div>
       <div className="mobile">
@@ -32,12 +44,24 @@ const Header = (props) => {
           sidebar={
             <div className="drawerMenu">
               <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Tutorial</li>
-                <li>Commands</li>
-                <li>Source on GitHub</li>
-                <li>Share</li>
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">About</a>
+                </li>
+                <li>
+                  <a href="#">Tutorial</a>
+                </li>
+                <li>
+                  <a href="#">Commands</a>
+                </li>
+                <li>
+                  <a href="#">Source on GitHub</a>
+                </li>
+                <li>
+                  <a href="#">Share</a>
+                </li>
               </ul>
             </div>
           }

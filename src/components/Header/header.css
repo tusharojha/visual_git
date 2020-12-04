@@ -17,12 +17,27 @@
   display: inline-block;
 }
 
+ul li a {
+  text-decoration: none;
+  color: #0d79df;
+  font-family: "Ubuntu", sans-serif !important;
+  font-size: 15;
+}
+
+ul li a:hover {
+  color: #0ddf53;
+}
+
 .desktop {
   display: block;
 }
 
 .mobile {
   display: none;
+}
+
+.drawerMenu {
+  padding: 20px;
 }
 
 @media screen and (max-width: 700px) {
@@ -34,7 +49,6 @@
     flex: 1;
     flex-direction: row;
     align-items: center;
-    margin: 10;
   }
   .desktop {
     display: none;
@@ -49,5 +63,9 @@
   }
   .drawerMenu {
     display: block;
+  }
+  .drawerMenu ul li {
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 }
