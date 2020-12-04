@@ -4,6 +4,14 @@ import Sidebar from "react-sidebar";
 
 import "./header.css";
 
+const MenuItem = (props) => {
+  return (
+    <li className={props.currentPage == props.title ? "active" : ""}>
+      <a href={props.url}>{props.title}</a>
+    </li>
+  );
+};
+
 const Header = (props) => {
   const [mobileMenuState, setMobileMenuState] = useState(false);
 
@@ -11,29 +19,21 @@ const Header = (props) => {
     <div className="main">
       <div className="desktop">
         <ul>
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Tutorial</a>
-          </li>
+          <MenuItem title="Home" url="#" currentPage={props.currentPage} />
+          <MenuItem title="About" url="#" currentPage={props.currentPage} />
+          <MenuItem title="Tutorial" url="#" currentPage={props.currentPage} />
           <li>
             <div className="logo">
               <h2>Visual Git</h2>
             </div>
           </li>
-          <li>
-            <a href="#">Commands</a>
-          </li>
-          <li>
-            <a href="#">Source on GitHub</a>
-          </li>
-          <li>
-            <a href="#">Share</a>
-          </li>
+          <MenuItem title="Commands" url="#" currentPage={props.currentPage} />
+          <MenuItem
+            title="Source on GitHub"
+            url="#"
+            currentPage={props.currentPage}
+          />
+          <MenuItem title="Share" url="#" currentPage={props.currentPage} />
         </ul>
       </div>
       <div className="mobile">
@@ -44,24 +44,36 @@ const Header = (props) => {
           sidebar={
             <div className="drawerMenu">
               <ul>
-                <li>
-                  <a href="#">Home</a>
-                </li>
-                <li>
-                  <a href="#">About</a>
-                </li>
-                <li>
-                  <a href="#">Tutorial</a>
-                </li>
-                <li>
-                  <a href="#">Commands</a>
-                </li>
-                <li>
-                  <a href="#">Source on GitHub</a>
-                </li>
-                <li>
-                  <a href="#">Share</a>
-                </li>
+                <MenuItem
+                  title="Home"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
+                <MenuItem
+                  title="About"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
+                <MenuItem
+                  title="Tutorial"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
+                <MenuItem
+                  title="Commands"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
+                <MenuItem
+                  title="Source on GitHub"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
+                <MenuItem
+                  title="Share"
+                  url="#"
+                  currentPage={props.currentPage}
+                />
               </ul>
             </div>
           }

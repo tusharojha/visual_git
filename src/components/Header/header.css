@@ -17,6 +17,10 @@
   display: inline-block;
 }
 
+ul li.active a {
+  color: #0ddf53;
+}
+
 ul li a {
   text-decoration: none;
   color: #0d79df;
@@ -40,7 +44,7 @@ ul li a:hover {
   padding: 20px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 750px) {
   .main {
     flex: 1;
   }

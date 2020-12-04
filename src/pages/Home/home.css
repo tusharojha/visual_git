@@ -1,0 +1,16 @@
+.body {
+  width: 100%;
+}
+
+.terminal,
+.visual {
+  width: 50%;
+  float: left;
+}
+
+@media screen and (max-width: 750px) {
+  .terminal,
+  .visual {
+    width: 100%;
+  }
+}
