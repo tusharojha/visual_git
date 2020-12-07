@@ -26,11 +26,15 @@ const Home = () => {
               },
             }}
             descriptions={{
-              "git init": "initializing a new git repository",
-              "git add": "stage the changes",
-              "git commit": "commit the staged changes",
-              "git push": "push the local changes",
-              "git branch": "lists the branches",
+              "git init":
+                "Create an empty Git repository or reinitialize an existing one",
+              "git add": "Add file contents to the index",
+              "git commit": "Record changes to the repository",
+              "git push": "Update remote refs along with associated objects",
+              "git branch": "List, create, or delete branches",
+              "git checkout": "Switch branches or restore working tree files",
+              "git merge": "Join two or more development histories together",
+              "git status": "Show the working tree status",
             }}
             msg="Welcome to Git Console! Start by initializing a git repository."
           />
