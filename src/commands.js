@@ -3,6 +3,13 @@ class Git {
     initializedRepo: false,
     commands: [],
   };
+  add() {
+    this.state.commands.push({
+      command: "add",
+      description: "added changes",
+    });
+    return "added changes";
+  }
   initRepo() {
     if (this.state.initializedRepo == false) {
       this.state.initializedRepo = true;
@@ -17,9 +24,13 @@ class Git {
       case "init":
         print(this.initRepo());
         break;
+      case "add":
+        print(this.add());
+        break;
       default:
         print("No such git command.");
     }
+    return this.state;
   }
   help(print) {
     print(

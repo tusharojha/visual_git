@@ -7,6 +7,8 @@ import Git from "../../commands";
 
 const Home = () => {
   var git = new Git();
+  const [state, setState] = useState({});
+
   return (
     <div>
       <Header currentPage="Home" />
@@ -20,7 +22,7 @@ const Home = () => {
             style={{ fontWeight: "bold", fontSize: "1em" }}
             commands={{
               git: (args, print, runCommand) =>
-                git.exec(args.slice(1), print, runCommand),
+                setState(git.exec(args.slice(1), print, runCommand)),
               help: (args, print, runCommand) => {
                 git.help(print);
               },
