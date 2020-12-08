@@ -19,6 +19,7 @@ const Home = () => {
             backgroundColor="black"
             hideTopBar={true}
             allowTabs={false}
+            promptSymbol="$"
             style={{ fontWeight: "bold", fontSize: "1em" }}
             commands={{
               git: (args, print, runCommand) =>
