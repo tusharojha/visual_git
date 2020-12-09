@@ -7,6 +7,28 @@ class Git {
     tree: {},
   };
 
+  checkout(args) {
+    if (this.state.initializedRepo == false)
+      return "fatal: not a git repository (or any of the parent directories): .git";
+    if (args.length == 0) return this.listAllBranches();
+    if (args[0] == "-b") {
+      if (args.length < 2)
+        return "fatal: branch name is not passed as parameter";
+      var branchName = args[1];
+      if (this.state.branches.findIndex((v) => v.name == branchName) != -1)
+        return "fatal: branch already exists with the name: " + branchName;
+      this.branch([branchName]);
+      this.state.currentBranch = branchName;
+      return (
+        "Switched to new branch " + branchName + "\n" + this.listAllBranches()
+      );
+    }
+    if (this.state.branches.findIndex((v) => v.name == args[0]) == -1)
+      return "fatal: branch with name " + args[0] + " doesn't exists.";
+    this.state.currentBranch = args[0];
+    return "switched to branch " + args[0] + "\n" + this.listAllBranches();
+  }
+
   listAllBranches() {
     var message = "";
     this.state.branches.forEach((i) => {
@@ -145,6 +167,15 @@ class Git {
         break;
       case "branch":
         print(this.branch(args.slice(1)));
+        break;
+      case "checkout":
+        print(this.checkout(args.slice(1)));
+        break;
+      case undefined:
+        print(
+          "Welcome to Visual Git!\nThese are common Git commands used in various situations:\n"
+        );
+        this.help(print);
         break;
       default:
         print("No such git command.");

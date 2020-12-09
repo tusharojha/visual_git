@@ -39,7 +39,7 @@ const Home = () => {
               "git merge": "Join two or more development histories together",
               "git status": "Show the working tree status",
             }}
-            msg="Welcome to Git Console! Start by initializing a git repository."
+            msg="Welcome to Visual Git Console! Start by initializing a git repository."
           />
         </div>
         <div className="visual">
