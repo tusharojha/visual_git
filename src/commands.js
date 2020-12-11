@@ -7,6 +7,28 @@ class Git {
     tree: {},
   };
 
+  status() {
+    if (this.state.initializedRepo == false)
+      return "fatal: not a git repository (or any of the parent directories): .git";
+    var message = "On branch " + this.state.currentBranch + "\n";
+    if (
+      this.state.commands.length != 0 &&
+      this.state.commands[this.state.commands.length - 1].command == "add"
+    ) {
+      message += "no changes added to commit (use git commit command) \n";
+    }
+    var count = 0;
+    if (this.state.tree[this.state.currentBranch] != null)
+      this.state.tree[this.state.currentBranch].forEach((i) => {
+        if (i.pushed == false) count++;
+      });
+    message +=
+      count > 0
+        ? "Your branch is " + count + " commits ahead the remote origin. \n"
+        : "Your branch is up to date with the remote origin.";
+    return message;
+  }
+
   checkout(args) {
     if (this.state.initializedRepo == false)
       return "fatal: not a git repository (or any of the parent directories): .git";
@@ -109,6 +131,7 @@ class Git {
         {
           id: generateCode,
           commit: commitMessage,
+          pushed: false,
           lastCommit:
             commits != null
               ? commits.length > 0
@@ -170,6 +193,9 @@ class Git {
         break;
       case "checkout":
         print(this.checkout(args.slice(1)));
+        break;
+      case "status":
+        print(this.status());
         break;
       case undefined:
         print(
