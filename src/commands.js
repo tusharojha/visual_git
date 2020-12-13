@@ -2,12 +2,81 @@ class Git {
   state = {
     initializedRepo: false,
     currentBranch: "main",
-    branches: [{ name: "main", head: "" }],
+    branches: [{ name: "main", head: "", merges: [] }],
     commands: [],
     tree: {},
   };
 
+  commitHistory(branchName) {
+    var commitHistory = [];
+    var baseCommits = this.state.tree[branchName];
+    var head = "";
+    if (baseCommits.length == 0) {
+      head = this.state.branches.find((v) => v.name == branchName).head;
+    } else {
+      head = baseCommits[0].lastCommit;
+      commitHistory = baseCommits.reverse();
+    }
+    while (head != "") {
+      // find the commit from the tree and add to commitHistory and set the new head
+      for (var key in this.state.tree) {
+        const value = this.state.tree[key];
+        var lastCommit = value.find((v) => v.id == head);
+        if (lastCommit != undefined) {
+          commitHistory = [...commitHistory, lastCommit];
+          head = lastCommit.lastCommit;
+        }
+      }
+    }
+    return commitHistory.reverse();
+  }
+
+  merge(args) {
+    if (this.state.initializedRepo == false)
+      return "fatal: not a git repository (or any of the parent directories): .git";
+    if (args.length < 1) return "fatal: branch name is not passed as parameter";
+    var branchName = args[0];
+    var targetBranchIndex = this.state.branches.findIndex(
+      (v) => v.name == branchName
+    );
+    if (targetBranchIndex == -1)
+      return "git error: branch with name " + branchName + " doesn't exists";
+    // get the all the commit history
+    var targetBranchCommits = this.commitHistory(branchName);
+    var baseBranchCommits = this.commitHistory(this.state.currentBranch);
+    var count = 0;
+    targetBranchCommits.forEach((i) => {
+      if (baseBranchCommits.find((v) => v.id == i.id) == undefined) {
+        count++;
+        baseBranchCommits.push(i);
+      }
+    });
+    if (count == 0)
+      return (
+        "git: no commits to merge from " +
+        branchName +
+        ".\nBranch is already up to date."
+      );
+    this.state.tree[this.state.currentBranch] = baseBranchCommits.sort(
+      (a, b) => a.timeStamp - b.timeStamp
+    );
+    this.state.branches[targetBranchIndex].merges.push({
+      target: this.state.currentBranch,
+      id: targetBranchCommits[targetBranchCommits.length - 1].id,
+    });
+    return (
+      "Merged branch " +
+      branchName +
+      " to " +
+      this.state.currentBranch +
+      ".\n" +
+      count +
+      " commits pushed successfully."
+    );
+  }
+
   status() {
+    console.log(this.state);
     if (this.state.initializedRepo == false)
       return "fatal: not a git repository (or any of the parent directories): .git";
     var message = "On branch " + this.state.currentBranch + "\n";
@@ -102,6 +171,7 @@ class Git {
             ? currentBranch[currentBranch.length - 1].id
             : ""
           : "",
+      merges: [],
     });
     this.state.tree[branchName] = [];
     return "created new branch " + branchName + "\n" + this.listAllBranches();
@@ -124,7 +194,7 @@ class Git {
         commitMessage += i.replaceAll('"', "") + " ";
       });
       commitMessage.slice(0, commitMessage.length - 1);
-      var generateCode = Math.random().toString(36).slice(2).substr(0, 6);
+      var generateCode = Math.random().toString(36).slice(2).substr(0, 7);
       var commits = this.state.tree[this.state.currentBranch] ?? [];
       this.state.tree[this.state.currentBranch] = [
         ...commits,
@@ -132,15 +202,17 @@ class Git {
           id: generateCode,
           commit: commitMessage,
           pushed: false,
+          timeStamp: Date.now(),
           lastCommit:
             commits != null
               ? commits.length > 0
                 ? commits[commits.length - 1].id
-                : ""
+                : this.state.branches.find(
+                    (v) => v.name == this.state.currentBranch
+                  ).head
               : "",
         },
       ];
-      console.log(this.state);
       this.state.commands.push({
         command: "commit",
         description: "commit added",
@@ -196,6 +268,9 @@ class Git {
         break;
       case "status":
         print(this.status());
+        break;
+      case "merge":
+        print(this.merge(args.slice(1)));
         break;
       case undefined:
         print(
