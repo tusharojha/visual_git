@@ -1,14 +1,29 @@
+html,
+body {
+  height: 100%;
+}
+
 .body {
   width: 100%;
+  display: flex;
 }
 
 .terminal,
 .visual {
+  flex: 1;
   width: 50%;
   float: left;
 }
 
+.visual {
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 750px) {
+  .body {
+    flex-direction: column;
+  }
   .terminal,
   .visual {
     width: 100%;

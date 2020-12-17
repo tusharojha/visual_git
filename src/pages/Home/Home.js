@@ -3,12 +3,13 @@ import Terminal from "terminal-in-react";
 
 import "./home.css";
 import Header from "../../components/Header/Header";
+import VisualTree from "../../components/VisualTree/VisualTree";
 import Git from "../../commands";
 
 const Home = () => {
   var git = new Git();
   const [state, setState] = useState({});
-
+  console.log(state);
   return (
     <div>
       <Header currentPage="Home" />
@@ -43,7 +44,7 @@ const Home = () => {
           />
         </div>
         <div className="visual">
-          <p>Tree</p>
+          <VisualTree initalized={state.initializedRepo ?? false} />
         </div>
       </div>
     </div>
