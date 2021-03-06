@@ -9,7 +9,9 @@ import Git from "../../commands";
 const Home = () => {
   var git = new Git();
   const [state, setState] = useState({});
-  console.log(state);
+
+  console.log("Home is rendering: ", state.initializedRepo);
+
   return (
     <div>
       <Header currentPage="Home" />
@@ -44,7 +46,11 @@ const Home = () => {
           />
         </div>
         <div className="visual">
-          <VisualTree initalized={state.initializedRepo ?? false} />
+          <VisualTree
+            setGitGraph={(gitgraph) => {
+              git.state.gitgraph = gitgraph;
+            }}
+          />
         </div>
       </div>
     </div>

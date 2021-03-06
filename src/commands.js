@@ -7,6 +7,18 @@ class Git {
     tree: {},
   };
 
+  push() {
+    if (this.state.initializedRepo == false)
+      return "fatal: not a git repository (or any of the parent directories): .git";
+
+    // if (this.state.tree["main"] != null) {
+    //   this.state.gitgraph.branch("main");
+    //   this.state.tree["main"].forEach((element) => {
+    //     this.state.gitgraph.commit({ subject: element.commit, id: element.id });
+    //   });
+    // }
+  }
+
   commitHistory(branchName) {
     var commitHistory = [];
     var baseCommits = this.state.tree[branchName];
@@ -271,6 +283,9 @@ class Git {
         break;
       case "merge":
         print(this.merge(args.slice(1)));
+        break;
+      case "push":
+        print(this.push());
         break;
       case undefined:
         print(
