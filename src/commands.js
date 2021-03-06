@@ -10,37 +10,7 @@ class Git {
   push() {
     if (this.state.initializedRepo == false)
       return "fatal: not a git repository (or any of the parent directories): .git";
-
-    // if (this.state.tree["main"] != null) {
-    //   this.state.gitgraph.branch("main");
-    //   this.state.tree["main"].forEach((element) => {
-    //     this.state.gitgraph.commit({ subject: element.commit, id: element.id });
-    //   });
-    // }
-  }
-
-  commitHistory(branchName) {
-    var commitHistory = [];
-    var baseCommits = this.state.tree[branchName];
-    var head = "";
-    if (baseCommits.length == 0) {
-      head = this.state.branches.find((v) => v.name == branchName).head;
-    } else {
-      head = baseCommits[0].lastCommit;
-      commitHistory = baseCommits.reverse();
-    }
-    while (head != "") {
-      // find the commit from the tree and add to commitHistory and set the new head
-      for (var key in this.state.tree) {
-        const value = this.state.tree[key];
-        var lastCommit = value.find((v) => v.id == head);
-        if (lastCommit != undefined) {
-          commitHistory = [...commitHistory, lastCommit];
-          head = lastCommit.lastCommit;
-        }
-      }
-    }
-    return commitHistory.reverse();
+    return "All changes are automatically pushed. Check out the graph to confirm.";
   }
 
   merge(args) {
@@ -53,37 +23,15 @@ class Git {
     );
     if (targetBranchIndex == -1)
       return "git error: branch with name " + branchName + " doesn't exists";
-    // get the all the commit history
-    var targetBranchCommits = this.commitHistory(branchName);
-    var baseBranchCommits = this.commitHistory(this.state.currentBranch);
-    var count = 0;
-    targetBranchCommits.forEach((i) => {
-      if (baseBranchCommits.find((v) => v.id == i.id) == undefined) {
-        count++;
-        baseBranchCommits.push(i);
-      }
-    });
-    if (count == 0)
-      return (
-        "git: no commits to merge from " +
-        branchName +
-        ".\nBranch is already up to date."
-      );
-    this.state.tree[this.state.currentBranch] = baseBranchCommits.sort(
-      (a, b) => a.timeStamp - b.timeStamp
-    );
-    this.state.branches[targetBranchIndex].merges.push({
-      target: this.state.currentBranch,
-      id: targetBranchCommits[targetBranchCommits.length - 1].id,
-    });
+
+    this.state.tree[this.state.currentBranch].merge({ branch: branchName });
     return (
       "Merged branch " +
       branchName +
       " to " +
       this.state.currentBranch +
       ".\n" +
-      count +
-      " commits pushed successfully."
+      "All commits pushed successfully."
     );
   }
 
@@ -96,17 +44,10 @@ class Git {
       this.state.commands.length != 0 &&
       this.state.commands[this.state.commands.length - 1].command == "add"
     ) {
+      message += "found some untracked files but \n";
       message += "no changes added to commit (use git commit command) \n";
     }
-    var count = 0;
-    if (this.state.tree[this.state.currentBranch] != null)
-      this.state.tree[this.state.currentBranch].forEach((i) => {
-        if (i.pushed == false) count++;
-      });
-    message +=
-      count > 0
-        ? "Your branch is " + count + " commits ahead the remote origin. \n"
-        : "Your branch is up to date with the remote origin.";
+    message += "Your branch is up to date with the remote origin.";
     return message;
   }
 
@@ -162,7 +103,7 @@ class Git {
       this.state.branches = this.state.branches.filter(
         (v) => v.name != branchName
       );
-      delete this.state.tree[branchName];
+      // this.state.tree[branchName].delete();
       return (
         "Deleted branch " +
         branchName +
@@ -185,7 +126,7 @@ class Git {
           : "",
       merges: [],
     });
-    this.state.tree[branchName] = [];
+    this.state.tree[branchName] = this.state.gitgraph.branch(branchName);
     return "created new branch " + branchName + "\n" + this.listAllBranches();
   }
 
@@ -207,28 +148,20 @@ class Git {
       });
       commitMessage.slice(0, commitMessage.length - 1);
       var generateCode = Math.random().toString(36).slice(2).substr(0, 7);
-      var commits = this.state.tree[this.state.currentBranch] ?? [];
-      this.state.tree[this.state.currentBranch] = [
-        ...commits,
-        {
-          id: generateCode,
-          commit: commitMessage,
-          pushed: false,
-          timeStamp: Date.now(),
-          lastCommit:
-            commits != null
-              ? commits.length > 0
-                ? commits[commits.length - 1].id
-                : this.state.branches.find(
-                    (v) => v.name == this.state.currentBranch
-                  ).head
-              : "",
-        },
-      ];
       this.state.commands.push({
         command: "commit",
         description: "commit added",
       });
+      if (this.state.tree[this.state.currentBranch] == null) {
+        this.state.tree[this.state.currentBranch] = this.state.gitgraph.branch(
+          this.state.currentBranch
+        );
+      }
+      this.state.tree[this.state.currentBranch].commit({
+        subject: commitMessage,
+        hash: generateCode,
+      });
+
       return (
         generateCode +
         " commit added to the " +
