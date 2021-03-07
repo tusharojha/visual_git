@@ -61,7 +61,7 @@ const Header = (props) => {
                 />
                 <MenuItem
                   title="Tutorial"
-                  url="#"
+                  url="https://www.youtube.com/playlist?list=PL-uHUISvCM2zlXI3FHEv-cDpoUQy4eFsY"
                   currentPage={props.currentPage}
                 />
                 <MenuItem
@@ -71,7 +71,7 @@ const Header = (props) => {
                 />
                 <MenuItem
                   title="Source on GitHub"
-                  url="#"
+                  url="https://github.com/tusharojha/visual_git"
                   currentPage={props.currentPage}
                 />
                 <MenuItem
