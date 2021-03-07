@@ -10,6 +10,9 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main .desktop ul li {
@@ -58,15 +61,15 @@ ul li a:hover {
     display: none;
   }
   .drawerMenu {
-    display: none;
+    display: block;
+  }
+  .drawerMenu ul {
+    flex-direction: column;
   }
   .logo {
     margin-right: 18px;
     flex: 1;
     text-align: center;
-  }
-  .drawerMenu {
-    display: block;
   }
   .drawerMenu ul li {
     margin-top: 1em;
