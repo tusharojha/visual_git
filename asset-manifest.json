@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/visual_git/static/css/main.3cd57bdb.chunk.css",
-    "main.js": "/visual_git/static/js/main.a164c01d.chunk.js",
-    "main.js.map": "/visual_git/static/js/main.a164c01d.chunk.js.map",
+    "main.css": "/visual_git/static/css/main.eef1c27f.chunk.css",
+    "main.js": "/visual_git/static/js/main.3c75e6ff.chunk.js",
+    "main.js.map": "/visual_git/static/js/main.3c75e6ff.chunk.js.map",
     "runtime-main.js": "/visual_git/static/js/runtime-main.d90e0665.js",
     "runtime-main.js.map": "/visual_git/static/js/runtime-main.d90e0665.js.map",
     "static/js/2.8f2cc6d3.chunk.js": "/visual_git/static/js/2.8f2cc6d3.chunk.js",
     "static/js/2.8f2cc6d3.chunk.js.map": "/visual_git/static/js/2.8f2cc6d3.chunk.js.map",
     "index.html": "/visual_git/index.html",
-    "static/css/main.3cd57bdb.chunk.css.map": "/visual_git/static/css/main.3cd57bdb.chunk.css.map",
+    "static/css/main.eef1c27f.chunk.css.map": "/visual_git/static/css/main.eef1c27f.chunk.css.map",
     "static/js/2.8f2cc6d3.chunk.js.LICENSE.txt": "/visual_git/static/js/2.8f2cc6d3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d90e0665.js",
     "static/js/2.8f2cc6d3.chunk.js",
-    "static/css/main.3cd57bdb.chunk.css",
-    "static/js/main.a164c01d.chunk.js"
+    "static/css/main.eef1c27f.chunk.css",
+    "static/js/main.3c75e6ff.chunk.js"
   ]
 }
