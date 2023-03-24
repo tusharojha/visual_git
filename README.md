@@ -25,7 +25,7 @@ This will start the `localhost:3000` server.
 - Open https://tusharojha.github.io/visual_git/ in your browser
 - type `git init` to initalize the git repository before doing any commit
 - check status using `git status`
-- start doing `git commit -am test1` to commit
+- start doing `git commit -am test1` to commit.
 
 ## Contributing
 
