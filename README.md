@@ -34,5 +34,5 @@ This will start the `localhost:3000` server.
 - If you face any bug or problem, file an issue to this repository with proper description of the problem.
 - Add proper description about your PR's objective.
 
-Backed up by Sadaiv CI
+Backed up by Sadaiv CI.
 
