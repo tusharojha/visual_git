@@ -35,6 +35,3 @@ This will start the `localhost:3000` server.
 - Add proper description about your PR's objective.
 
 Feel free to contribute new features.
-
-Safe guarding the project on-chain.
-
